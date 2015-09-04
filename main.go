@@ -13,9 +13,9 @@ import (
 
 func main() {
 
-	port := os.Getenv("PORT")
-	if port == "" {
-		log.Fatal("No port provided for the imageproxy")
+	addr := os.Getenv("ADDRESS")
+	if addr == "" {
+		log.Fatal("No address provided for the imageproxy")
 	}
 
 	p := imageproxy.NewProxy(nil, nil)
@@ -33,11 +33,11 @@ func main() {
 	}
 
 	server := &http.Server{
-		Addr:    "localhost:" + port,
+		Addr:    addr,
 		Handler: p,
 	}
 
-	fmt.Printf("imageproxy listening on localhost:" + port)
+	fmt.Printf("imageproxy listening on " + addr)
 	err := server.ListenAndServe()
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
